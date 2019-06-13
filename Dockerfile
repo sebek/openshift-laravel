@@ -16,7 +16,7 @@ LABEL io.k8s.description="Platform for building Laravel" \
 RUN yum install epel-release -y && \
     rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && \
     yum install nginx -y && \
-    yum install php72w-fpm php72w-opcache -y && \
+    yum install php72w-fpm php72w-opcache php72w-cli php72w-mbstring php72w-pgsql -y && \
     yum clean all
 
 # TODO (optional): Copy the builder files into /opt/app-root
