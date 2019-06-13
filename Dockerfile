@@ -8,7 +8,7 @@ LABEL maintainer="Sebastian Kemi <sebekish@gmail.com>"
 
 # TODO: Set labels used in OpenShift to describe the builder image
 LABEL io.k8s.description="Platform for building Laravel" \
-      io.k8s.display-name="openshift-laravel x.y.z" \
+      io.k8s.display-name="openshift-laravel" \
       io.openshift.expose-services="8080:http"
 #      io.openshift.tags="builder,x.y.z,etc."
 
@@ -16,7 +16,8 @@ LABEL io.k8s.description="Platform for building Laravel" \
 RUN yum install epel-release -y && \
     rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && \
     yum install nginx -y && \
-    yum install php72w-fpm php72w-opcache php72w-cli php72w-mbstring php72w-pgsql -y && \
+    yum install php72w-fpm php72w-opcache php72w-cli php72w-mbstring php72w-pgsql \
+                php72w-bcmath php72w-common php72w-pdo php72w-xml -y && \
     yum clean all
 
 # TODO (optional): Copy the builder files into /opt/app-root
