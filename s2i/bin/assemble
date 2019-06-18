@@ -7,6 +7,8 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
+shopt -s dotglob
+
 # If the 'jo-p-n' assemble script is executed with the '-h' flag, print the usage.
 if [[ "$1" == "-h" ]]; then
 	exec /usr/libexec/s2i/usage
@@ -21,6 +23,9 @@ fi
 
 echo "---> Installing application source..."
 cp -Rf /tmp/src/. ./
+
+echo "---> Setting the permissions for storage"
+chgrp -R 0 storage && chmod -R g+rwX storage
 
 
 if [ -f composer.json ]; then
@@ -56,7 +61,7 @@ if [ -f composer.json ]; then
   fi
 
   # Install App dependencies using Composer
-  ./composer.phar install --no-interaction --no-ansi --optimize-autoloader $COMPOSER_ARGS
+  ./composer.phar install --no-interaction --no-dev --no-ansi --optimize-autoloader $COMPOSER_ARGS
 
   if [ ! -f composer.lock ]; then
     echo -e "\nConsider adding a 'composer.lock' file into your source repository.\n"
@@ -64,4 +69,5 @@ if [ -f composer.json ]; then
 fi
 
 echo "---> Building application from source..."
-# TODO: Add build steps for your application, eg npm install, bundle install, pip install, etc.
+
+echo "---> Done building application"

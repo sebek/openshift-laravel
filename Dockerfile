@@ -30,15 +30,18 @@ COPY ./s2i/bin/ /usr/libexec/s2i
 COPY ./etc/ /etc/
 
 # TODO: Drop the root user and make the content of /opt/app-root owned by user 1001
-RUN chown -R 1001:1001 /usr/share/nginx
-RUN chown -R 1001:1001 /var/log/nginx
-RUN chown -R 1001:1001 /var/lib/nginx
+RUN chown -R 1001:0 /usr/share/nginx && chmod -R g+rwX /usr/share/nginx
+RUN chown -R 1001:0 /var/log/nginx && chmod -R g+rwX /var/log/nginx
+RUN chown -R 1001:0 /var/lib/nginx && chmod -R g+rwX /var/lib/nginx
 RUN touch /run/nginx.pid
-RUN chown -R 1001:1001 /run/nginx.pid
-RUN chown -R 1001:1001 /etc/nginx
+RUN chown -R 1001:0 /run/nginx.pid && chmod -R g+rwX /run/nginx.pid
+RUN chown -R 1001:0 /etc/nginx && chmod -R g+rwX /etc/nginx
 
 RUN touch /var/run/php-fpm/php-fpm.pid
-RUN chown -R 1001:1001 /var/run/php-fpm/php-fpm.pid
+RUN chown -R 1001:0 /var/run/php-fpm/php-fpm.pid && chmod -R g+rwX /var/run/php-fpm/php-fpm.pid
+
+
+RUN chown -R 1001:0 /opt/app-root/src && chmod -R g+rwX /opt/app-root/src
 
 # This default user is created in the openshift/base-centos7 image
 USER 1001
