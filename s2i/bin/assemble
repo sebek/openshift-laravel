@@ -26,6 +26,7 @@ cp -Rf /tmp/src/. ./
 
 echo "---> Setting the permissions for storage"
 chgrp -R 0 storage && chmod -R g+rwX storage
+chgrp -R 0 bootstrap && chmod -R g+rwX bootstrap
 
 
 if [ -f composer.json ]; then
