@@ -7,8 +7,8 @@
 #	https://github.com/openshift/source-to-image/blob/master/docs/builder_image.md
 #
 
-exec php artisan migrate --force || true
-exec php artisan config:cache || true
+php artisan migrate --force
+php artisan config:cache
 
 exec php-fpm & /usr/sbin/nginx -g "daemon off;"
 
