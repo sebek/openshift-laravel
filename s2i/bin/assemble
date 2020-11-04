@@ -49,7 +49,7 @@ if [ -f composer.json ]; then
     echo "Download failed, giving up."
     exit 1
   fi
-  php <$TEMPFILE --version=1.8.2
+  php $TEMPFILE --version=1.8.2
 
   if [ "$(ls -a /tmp/artifacts/ 2>/dev/null)" ]; then
     echo "Restoring build artifacts"
