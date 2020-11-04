@@ -43,6 +43,9 @@ RUN chown -R 1001:0 /var/run/php-fpm/php-fpm.pid && chmod -R g+rwX /var/run/php-
 
 RUN chown -R 1001:0 /opt/app-root/src && chmod -R g+rwX /opt/app-root/src
 
+# Fix for /dev/null
+RUN chmod 666 /dev/null
+
 # This default user is created in the openshift/base-centos7 image
 USER 1001
 
