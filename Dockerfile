@@ -13,11 +13,13 @@ LABEL io.k8s.description="Platform for building Laravel" \
 #      io.openshift.tags="builder,x.y.z,etc."
 
 
+RUN yum install ca-certificates -y
+
 RUN yum install epel-release -y && \
     rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm && \
     yum install nginx -y && \
     yum install php72w-fpm php72w-opcache php72w-cli php72w-mbstring php72w-pgsql \
-                php72w-bcmath php72w-common php72w-pdo php72w-xml php72w-soap php72w-gd -y && \
+                php72w-bcmath php72w-common php72w-pdo php72w-xml php72w-soap php72w-gd php72w-pecl-redis -y && \
     yum clean all
 
 # TODO (optional): Copy the builder files into /opt/app-root

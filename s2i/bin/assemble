@@ -41,8 +41,8 @@ if [ -f composer.json ]; then
       export COMPOSER_INSTALLER="https://getcomposer.org/installer"
     fi
 
-    echo "Downloading (insecure) $COMPOSER_INSTALLER, attempt $((i+1))/$RETRIES"
-    curl -k -o $TEMPFILE $COMPOSER_INSTALLER && break
+    echo "Downloading $COMPOSER_INSTALLER, attempt $((i+1))/$RETRIES"
+    curl --cacert /etc/ssl/certs/ca-bundle.crt -o $TEMPFILE $COMPOSER_INSTALLER && break
     sleep 10
   done
   if [[ $i == $RETRIES ]]; then
